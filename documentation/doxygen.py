@@ -860,6 +860,7 @@ def parse_desc_internal(state: State, element: ET.Element, immediate_parent: ET.
                 if row.tag == 'row':
                     is_header_row = True
                     row_data = ''
+                    row_class = None
                     for entry in row:
                         assert entry.tag == 'entry'
                         is_header = entry.attrib['thead'] == 'yes'
@@ -867,10 +868,16 @@ def parse_desc_internal(state: State, element: ET.Element, immediate_parent: ET.
                         rowspan = ' rowspan="{}"'.format(entry.attrib['rowspan']) if 'rowspan' in entry.attrib else ''
                         colspan = ' colspan="{}"'.format(entry.attrib['colspan']) if 'colspan' in entry.attrib else ''
                         classes = ' class="{}"'.format(entry.attrib['class']) if 'class' in entry.attrib else ''
+
+                        desc = parse_desc(state, entry)
+                        if desc and desc.startswith('{{'):
+                            idx = desc.find('}}')
+                            row_class = desc[2:idx]
+                            desc = desc[idx+2:].strip()
+
                         row_data += '<{0}{2}{3}{4}>{1}</{0}>'.format(
                             'th' if is_header else 'td',
-                            parse_desc(state, entry),
-                            rowspan, colspan, classes)
+                            desc, rowspan, colspan, classes)
 
                     # Table head is opened upon encountering first header row
                     # and closed upon encountering first body row (in case it was
@@ -887,7 +894,10 @@ def parse_desc_internal(state: State, element: ET.Element, immediate_parent: ET.
                             out.parsed += '<tbody>'
                             inside_tbody = True
 
-                    out.parsed += '<tr>{}</tr>'.format(row_data)
+                    if row_class:
+                        out.parsed += '<tr class="{}">{}</tr>'.format(row_class, row_data)
+                    else:
+                        out.parsed += '<tr>{}</tr>'.format(row_data)
 
             if inside_tbody: out.parsed += '</tbody>'
             out.parsed += '</table>'
