@@ -375,8 +375,7 @@ div.m-button a .m-small:last-child {
 /* Tables */
 table.m-table {
   border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
 table.m-table.m-big {
   margin-top: 1.75rem;
@@ -1594,7 +1593,10 @@ img.m-image, svg.m-image, figure.m-figure, .m-imagegrid, div.m-math,
 div.m-graph, div.m-plot {
   margin-bottom: 1rem;
 }
-p:last-child, p.m-nopadb, ul:last-child, ul.m-nopadb,
+li {
+  margin-bottom: 0.25rem;
+}
+p:last-child, p.m-nopadb, ul:last-child, li:last-child, ul.m-nopadb,
 ol:last-child, ol.m-nopadb, dl:last-child, dl.m-nopadb,
 blockquote:last-child, blockquote.m-nopadb, pre:last-child, pre.m-nopadb,
 .m-code-figure:last-child, .m-code-figure.m-nopadb,
