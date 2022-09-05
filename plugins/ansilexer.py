@@ -265,7 +265,7 @@ class HtmlAnsiFormatter(HtmlFormatter):
         '(?P<Suffix>")'
     )
 
-    def wrap(self, source, outfile):
+    def wrap(self, source):
         return self._wrap_code(source)
 
     def _wrap_code(self, source):

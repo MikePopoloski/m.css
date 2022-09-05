@@ -55,8 +55,8 @@ if not hasattr(os.environ, 'LIBGS') and not find_library('gs'):
         homebrew_libgs = '/usr/local/opt/ghostscript/lib/libgs.dylib'
         if os.path.exists(homebrew_libgs):
             default_params['libgs'] = homebrew_libgs
-    if not default_params['libgs']:
-        print('Warning: libgs not found')
+    #if not default_params['libgs']:
+    #    print('Warning: libgs not found')
 
 
 def latex2svg(code, params=default_params, working_directory=None):
