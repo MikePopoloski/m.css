@@ -71,8 +71,8 @@ if not hasattr(os.environ, 'LIBGS') and not libgs:
         homebrew_libgs = '/usr/local/opt/ghostscript/lib/libgs.dylib'
         if os.path.exists(homebrew_libgs):
             default_params['libgs'] = homebrew_libgs
-    if not default_params['libgs']:
-        print('Warning: libgs not found')
+    #if not default_params['libgs']:
+    #    print('Warning: libgs not found')
 # dvisvgm < 3.0 only looks for ghostscript < 10 on its own, attempt to supply
 # it directly if version 10 is found. Fixed in
 # https://github.com/mgieseki/dvisvgm/commit/46b11c02a46883309a824e3fc798f8093041daec
