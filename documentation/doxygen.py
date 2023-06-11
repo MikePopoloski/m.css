@@ -3403,9 +3403,10 @@ def parse_xml(state: State, xml: str):
                     # variables (ugh). Since Doxygen 1.9 the `friend ` prefix
                     # is omitted.
                     if memberdef.find('type').text in ['class', 'struct', 'union', 'friend class', 'friend struct', 'friend union']:
+                        pass
                         # Print a warning in case these are documented
-                        if (''.join(memberdef.find('briefdescription').itertext()).strip() or ''.join(memberdef.find('detaileddescription').itertext()).strip()):
-                            logging.warning("{}: doxygen is unable to cross-link {}, ignoring, sorry".format(state.current, memberdef.find('definition').text))
+                        #if (''.join(memberdef.find('briefdescription').itertext()).strip() or ''.join(memberdef.find('detaileddescription').itertext()).strip()):
+                        #    logging.warning("{}: doxygen is unable to cross-link {}, ignoring, sorry".format(state.current, memberdef.find('definition').text))
                     # Only friend functions left, hopefully, parse as a func
                     else:
                         func = parse_func(state, memberdef)
@@ -3455,7 +3456,8 @@ def parse_xml(state: State, xml: str):
                         # variables (ugh). Since Doxygen 1.9 the `friend `
                         # prefix is omitted.
                         if memberdef.find('type').text in ['class', 'struct', 'union', 'friend class', 'friend struct', 'friend union'] and (memberdef.find('briefdescription').text or memberdef.find('detaileddescription').text):
-                            logging.warning("{}: doxygen is unable to cross-link {}, ignoring, sorry".format(state.current, memberdef.find('definition').text))
+                            pass
+                            #logging.warning("{}: doxygen is unable to cross-link {}, ignoring, sorry".format(state.current, memberdef.find('definition').text))
                         # Only friend functions left, hopefully, parse as a func
                         else:
                             func = parse_func(state, memberdef)
