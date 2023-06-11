@@ -369,7 +369,7 @@ ul ol, ul ul, ol ol, ol ul {
   margin-bottom: 0;
 }
 main p {
-  text-indent: 1.5rem;
+  text-indent: 0rem;
   text-align: justify;
 }
 main p.m-noindent, li > p, dd > p, table.m-table td > p {
@@ -527,7 +527,7 @@ ul[class*='m-block-dot-'] li:not(:last-child)::after, ol[class*='m-block-dot-'] 
 p.m-poem {
   text-indent: 0;
   text-align: left;
-  margin-left: 1.5rem;
+  margin-left: 0rem;
 }
 p.m-transition {
   color: #405363;
@@ -658,8 +658,7 @@ div.m-button a .m-small:last-child {
 }
 table.m-table {
   border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
 }
 table.m-table.m-big {
   margin-top: 1.75rem;
@@ -1803,7 +1802,10 @@ img.m-image, svg.m-image, figure.m-figure, .m-imagegrid, div.m-math,
 div.m-graph, div.m-plot {
   margin-bottom: 1rem;
 }
-p:last-child, p.m-nopadb, ul:last-child, ul.m-nopadb,
+li {
+  margin-bottom: 0.25rem;
+}
+p:last-child, p.m-nopadb, ul:last-child, li:last-child, ul.m-nopadb,
 ol:last-child, ol.m-nopadb, dl:last-child, dl.m-nopadb,
 blockquote:last-child, blockquote.m-nopadb, pre:last-child, pre.m-nopadb,
 .m-code-figure:last-child, .m-code-figure.m-nopadb,
@@ -2178,7 +2180,7 @@ article section > h4 a, article section > h5 a, article section > h6 a {
 #m-landing-cover h1 {
   font-size: 2.8rem;
   margin-top: -0.5rem;
-  padding-left: 1.5rem;
+  padding-left: 0rem;
   padding-bottom: 1rem;
   text-transform: lowercase;
 }
