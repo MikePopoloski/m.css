@@ -1624,7 +1624,7 @@ img.m-image, svg.m-image, figure.m-figure, .m-imagegrid, div.m-math,
 div.m-graph, div.m-plot {
   margin-bottom: 1rem;
 }
-li {
+main li {
   margin-bottom: 0.25rem;
 }
 p:last-child, p.m-nopadb, ul:last-child, li:last-child, ul.m-nopadb,
