@@ -47,8 +47,8 @@ body > header > nav.m-navbar-cover:hover {
   background-color: var(--header-background-color-landing);
   opacity: 1;
 }
-body> header > nav.m-navbar-landing:target,
-body> header > nav.m-navbar-cover:target {
+body > header > nav.m-navbar-landing:target,
+body > header > nav.m-navbar-cover:target {
   background-color: var(--header-background-color);
   opacity: 1;
 }
@@ -99,7 +99,7 @@ body > header > nav #m-navbar-brand .m-breadcrumb {
   color: var(--header-breadcrumb-color);
 }
 body > header > nav a#m-navbar-show::before, body > header > nav a#m-navbar-hide::before {
-  content:'\2630';
+  content: '\2630';
 }
 body > header > nav #m-navbar-collapse {
   padding-bottom: 1rem;
@@ -405,7 +405,7 @@ article#m-jumbo > header h2 {
   font-size: 3vmin;
 }
 /* 2.5vmin equals to 16px (= 1 rem) on 640px, use that as the lower limit */
-@media screen and (max-height: 640px) , screen and (max-width: 640px) {
+@media screen and (max-height: 640px), screen and (max-width: 640px) {
   article#m-jumbo > header h1 {
     font-size: 3rem;
   }
@@ -473,12 +473,24 @@ nav.m-navpanel a:hover, nav.m-navpanel a:focus, nav.m-navpanel a:active {
 }
 
 /* Tag cloud */
-ul.m-tagcloud li { display: inline; }
-ul.m-tagcloud li.m-tag-1 { font-size: 0.75rem; }
-ul.m-tagcloud li.m-tag-2 { font-size: 0.825rem; }
-ul.m-tagcloud li.m-tag-3 { font-size: 1rem; }
-ul.m-tagcloud li.m-tag-4 { font-size: 1.25rem; }
-ul.m-tagcloud li.m-tag-5 { font-size: 1.5rem; }
+ul.m-tagcloud li {
+  display: inline;
+}
+ul.m-tagcloud li.m-tag-1 {
+  font-size: 0.75rem;
+}
+ul.m-tagcloud li.m-tag-2 {
+  font-size: 0.825rem;
+}
+ul.m-tagcloud li.m-tag-3 {
+  font-size: 1rem;
+}
+ul.m-tagcloud li.m-tag-4 {
+  font-size: 1.25rem;
+}
+ul.m-tagcloud li.m-tag-5 {
+  font-size: 1.5rem;
+}
 
 /* Avoid selection border being above figure border */
 article section:target figure.m-code-figure, article section:target figure.m-console-figure {
@@ -486,8 +498,12 @@ article section:target figure.m-code-figure, article section:target figure.m-con
 }
 
 /* Spacing after every block element, but not after the last */
-article, article > header, article section { margin-bottom: 1rem; }
-article:last-child, article section:last-child { margin-bottom: 0; }
+article, article > header, article section {
+  margin-bottom: 1rem;
+}
+article:last-child, article section:last-child {
+  margin-bottom: 0;
+}
 
 /* Active sections in inflatable content affect left border of some components
    --- restrict to components directly in active section, its subsections and
@@ -773,7 +789,7 @@ article:last-child, article section:last-child { margin-bottom: 0; }
 .m-container-inflatable section:target .m-note.m-default {
   border-color: var(--line-color);
 }
-.m-container-inflatable section:target .m-note.m-primary  {
+.m-container-inflatable section:target .m-note.m-primary {
   border-color: var(--primary-color);
 }
 .m-container-inflatable section:target .m-note.m-success {
