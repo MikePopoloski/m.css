@@ -27,11 +27,11 @@
   <div class="m-container">
     <div class="m-row">
       {% if MAIN_PROJECT_URL and PROJECT_BRIEF %}
-      <span id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">
+      <span id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m m-push-m-2">
         <a href="{{ MAIN_PROJECT_URL }}">{% if PROJECT_LOGO %}<img src="{{ PROJECT_LOGO|basename_or_url|e }}" alt="" />{% endif %}{{ PROJECT_NAME }}</a> <span class="m-breadcrumb">|</span> <a href="index.html" class="m-thin">{{ PROJECT_BRIEF }}</a>
       </span>
       {% else %}
-      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">{% if PROJECT_LOGO %}<img src="{{ PROJECT_LOGO|basename_or_url|e }}" alt="" />{% endif %}{{ PROJECT_NAME }}{% if PROJECT_BRIEF %} <span class="m-thin">{{ PROJECT_BRIEF }}</span>{% endif %}</a>
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m m-push-m-2">{% if PROJECT_LOGO %}<img src="{{ PROJECT_LOGO|basename_or_url|e }}" alt="" />{% endif %}{{ PROJECT_NAME }}{% if PROJECT_BRIEF %} <span class="m-thin">{{ PROJECT_BRIEF }}</span>{% endif %}</a>
       {% endif %}
       {% if LINKS_NAVBAR1 or LINKS_NAVBAR2 or not SEARCH_DISABLED %}
       <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
@@ -43,7 +43,7 @@
         <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
         <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
       </div>
-      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-7 m-right-m">
         <div class="m-row">
           <ol class="{% if LINKS_NAVBAR2 %}m-col-t-6{% else %}m-col-t-12{% endif %} m-col-m-none">
             {% for html, title, link, id, sub in LINKS_NAVBAR1 %}
@@ -100,14 +100,19 @@
   </div>
 </nav></header>
 <main><article>
-  <div class="m-container m-container-inflatable">
+  <div class="m-container">
     <div class="m-row">
-      <div class="m-col-l-10 m-push-l-1">
+      <div class="m-col-l-3 m-show-l"></div>
+      <div class="m-col-l-6">
         {% if PAGE_HEADER %}
         {{ PAGE_HEADER|replace('{filename}', FILENAME) }}
         {% endif %}
 {% block main %}
 {% endblock %}
+      </div>
+      <div class="m-col-l-3 m-show-l" style="top: 5px;position: sticky;">
+        {% block pagetoc %}
+        {% endblock %}
       </div>
     </div>
   </div>
@@ -150,7 +155,7 @@
 <footer><nav>
   <div class="m-container">
     <div class="m-row">
-      <div class="m-col-l-10 m-push-l-1">
+      <div class="m-col-l-9 m-push-l-2">
         {% if FINE_PRINT == '[default]' %}
         <p>{{ PROJECT_NAME }}{% if PROJECT_BRIEF %} {{ PROJECT_BRIEF }}{% endif %}. Created with {% if DOXYGEN_VERSION %}<a href="https://doxygen.org/">Doxygen</a> {{ DOXYGEN_VERSION }} and {% endif %}<a href="https://mcss.mosra.cz/">m.css</a>.</p>
         {% else %}

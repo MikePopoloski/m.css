@@ -121,7 +121,7 @@ default_config = {
     ],
 
     'STYLESHEETS': [
-        'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600',
+        'https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i',
         '../css/m-dark+documentation.compiled.css'],
     'HTML_HEADER': None,
     'EXTRA_FILES': [],

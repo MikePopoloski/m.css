@@ -26,14 +26,14 @@
 
 :root {
   /* Text properties */
-  --font: 'Source Sans Pro', sans-serif;
-  --code-font: 'Source Code Pro', monospace;
-  --font-size: 16px;
+  --font: 'Roboto', sans-serif;
+  --code-font: 'Roboto Mono', monospace;
+  --font-size: 17px;
   --code-font-size: 0.9em;
   /* *not* rem, so it follows surrounding font size */
-  --line-height: normal;
+  --line-height: 1.6;
   --paragraph-indent: 0rem;
-  --paragraph-align: justify;
+  --paragraph-align: left;
   --link-decoration: underline;
   --link-decoration-nav: none;
   --link-decoration-heading: none;
@@ -42,14 +42,14 @@
   --nav-heading-case: uppercase;
   --nav-categories-case: lowercase;
   --landing-header-case: lowercase;
-  --heading-font-weight: 600;
+  --heading-font-weight: 400;
 
   /* Shapes */
   --border-radius: 0.2rem;
 
   /* Basics */
-  --background-color: #2f363f;
-  --color: #dcdcdc;
+  --background-color: hsla(225deg, 15%, 14%, 1);
+  --color: hsla(225deg, 15%, 90%, 0.82);
   --line-color: #405363;
   --link-color: #5b9dd9;
   --link-active-color: #a5c9ea;
@@ -67,11 +67,11 @@
   --button-background-color: #22272e;
 
   /* Header */
-  --header-border-width: 0 0 0.25rem 0;
+  --header-border-width: 0;
   --header-color: #ffffff;
   --header-breadcrumb-color: #747474;
   /* same as --dim-color */
-  --header-background-color: #22272e;
+  --header-background-color: hsla(225deg, 15%, 9%, 1);
   --header-background-color-landing: rgba(34, 39, 46, 0.75);
   --header-background-color-jumbo: rgba(34, 39, 46, 0.25);
   --header-link-color: #ffffff;
@@ -81,9 +81,9 @@
   --header-link-active-background-color-semi: rgba(41, 47, 55, 0.5);
 
   /* Footer */
-  --footer-font-size: 0.85rem;
-  --footer-color: #c5c5c5;
-  --footer-background-color: #444e5c;
+  --footer-font-size: 0.9rem;
+  --footer-color: hsla(225deg, 15%, 90%, 0.82);
+  --footer-background-color: hsla(225deg, 15%, 9%, 1);
   --footer-link-color: #ffffff;
   --footer-link-active-color: #a5c9ea;
 

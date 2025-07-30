@@ -41,10 +41,6 @@ body {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.m-row {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
 .m-row::after {
   /* avoid rows floating around each other */
   content: ' ';
@@ -222,10 +218,6 @@ body {
 
 /* 12-column layout -- S, 576px and up (landscape phones) */
 @media screen and (min-width: 576px) {
-  .m-container {
-    width: 560px;
-  }
-
   .m-container-inflatable .m-col-s-10 .m-container-inflate:not([class*='m-left-']):not([class*='m-right-']) {
     margin-left: -10%;
     margin-right: -10%;
@@ -385,10 +377,6 @@ body {
 
 /* 12-column layout -- M, 768px and up (tablets, small desktops) */
 @media screen and (min-width: 768px) {
-  .m-container {
-    width: 750px;
-  }
-
   .m-container-inflatable .m-col-m-10 .m-container-inflate:not([class*='m-left-']):not([class*='m-right-']) {
     margin-left: -10%;
     margin-right: -10%;
@@ -548,10 +536,6 @@ body {
 
 /* 12-column layout -- L, 992px and up (desktops, very large tablets) */
 @media screen and (min-width: 992px) {
-  .m-container {
-    width: 960px;
-  }
-
   .m-container-inflatable .m-col-l-10 .m-container-inflate:not([class*='m-left-']):not([class*='m-right-']) {
     margin-left: -10%;
     margin-right: -10%;

@@ -28,7 +28,6 @@
 body > header > nav {
   width: 100%;
   background-color: var(--header-background-color);
-  min-height: 3rem;
 }
 body > header > nav.m-navbar-landing,
 body > header > nav.m-navbar-cover {
@@ -227,10 +226,7 @@ body > footer {
   width: 100%;
 }
 body > footer > nav {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   font-size: var(--footer-font-size);
-  text-align: center;
   color: var(--footer-color);
   background-color: var(--footer-background-color);
 }
@@ -347,6 +343,10 @@ article section:target {
 article h1 a, article > header h1 a, article section > h2 a, article section > h3 a,
 article section > h4 a, article section > h5 a, article section > h6 a {
   text-decoration: var(--link-decoration-heading);
+}
+
+nav.m-sidebar > h4 {
+  color: hsla(225deg, 15%, 90%, 0.56)
 }
 
 /* Landing page, jumbo article */

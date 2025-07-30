@@ -23,29 +23,32 @@
         {% if compound.brief %}
         <p>{{ compound.brief }}</p>
         {% endif %}
-        {% if compound.sections %}
-        <nav class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            {% for id, name, children in compound.sections recursive %}
-            {% if children %}
-            <li>
-              <a href="#{{ id }}">{{ name }}</a>
-              <ul>
-{{ loop(children)|rtrim|indent(4, true) }}
-              </ul>
-            </li>
-            {% else %}
-            <li><a href="#{{ id }}">{{ name }}</a></li>
-            {% endif %}
-            {% endfor %}
-          </ul>
-        </nav>
-        {% endif %}
         {% if compound.description %}
 {{ compound.description }}
         {% endif %}
         {% if compound.footer_navigation %}
         <div class="m-note m-dim m-thin m-text-center">{% if compound.footer_navigation[0] %}<a href="{{ compound.footer_navigation[0][0] }}" class="m-doc">&laquo; {{ compound.footer_navigation[0][1] }}</a> | {% endif %}<a href="{{ compound.footer_navigation[1][0] }}" class="m-doc">{{ compound.footer_navigation[1][1] }}</a>{% if compound.footer_navigation[2] %} | <a href="{{ compound.footer_navigation[2][0] }}" class="m-doc">{{ compound.footer_navigation[2][1] }} &raquo;</a>{% endif %}</div>
         {% endif %}
+{% endblock %}
+
+{% block pagetoc %}
+{% if compound.sections %}
+<nav class="m-sidebar">
+  <h4 style="padding-top: 0.5rem;">Contents</h4>
+  <ul class="m-unstyled">
+    {% for id, name, children in compound.sections recursive %}
+    {% if children %}
+    <li style="margin-bottom: 0px;">
+      <a href="#{{ id }}" class="m-toc">{{ name }}</a>
+      <ul>
+{{ loop(children)|rtrim|indent(4, true) }}
+      </ul>
+    </li>
+    {% else %}
+    <li style="margin-bottom: 0px;"><a href="#{{ id }}" class="m-toc">{{ name }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}
 {% endblock %}

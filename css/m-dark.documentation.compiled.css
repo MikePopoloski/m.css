@@ -44,7 +44,7 @@ ul.m-doc li.m-doc-expansible > a:first-child:active,
 ul.m-doc li.m-doc-collapsible > a:first-child:hover,
 ul.m-doc li.m-doc-collapsible > a:first-child:focus,
 ul.m-doc li.m-doc-collapsible > a:first-child:active {
-  color: #dcdcdc;
+  color: hsla(225deg, 15%, 90%, 0.82);
 }
 a.m-doc-self,
 ul.m-doc li.m-doc-expansible > a:first-child::before,
@@ -110,7 +110,7 @@ ul.m-doc li.m-doc-expansible > ul.m-doc, ul.m-doc li.m-doc-collapsible > ul.m-do
   margin-left: 0.5rem;
 }
 ul.m-doc li.m-doc-expansible > a:first-child::before, ul.m-doc li.m-doc-collapsible > a:first-child::before {
-  background-color: #2f363f;
+  background-color: hsla(225deg, 15%, 14%, 1);
   display: inline-block;
   width: 0.4rem;
   font-weight: bold;
@@ -247,7 +247,7 @@ a.m-doc-search-icon:focus svg, a.m-doc-search-icon:hover svg, a.m-doc-search-ico
   float: right;
 }
 .m-doc-search-content {
-  background-color: #22272e;
+  background-color: hsla(225deg, 15%, 9%, 1);
   border-radius: 0.2rem;
   padding: 1rem;
 }
@@ -256,7 +256,7 @@ a.m-doc-search-icon:focus svg, a.m-doc-search-icon:hover svg, a.m-doc-search-ico
   height: 3rem;
   font-size: 1.2rem;
   border-width: 0;
-  color: #dcdcdc;
+  color: hsla(225deg, 15%, 90%, 0.82);
   background-color: #34424d;
   border-radius: 0.2rem;
   margin-bottom: 1rem;
@@ -279,7 +279,7 @@ a.m-doc-search-icon:focus svg, a.m-doc-search-icon:hover svg, a.m-doc-search-ico
   text-decoration: none;
   width: 100%;
   line-height: 1.5rem;
-  color: #dcdcdc;
+  color: hsla(225deg, 15%, 90%, 0.82);
 }
 .m-doc-search ul#search-results li a > div {
   white-space: nowrap;
