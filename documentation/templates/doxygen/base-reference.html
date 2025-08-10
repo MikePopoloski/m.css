@@ -25,65 +25,6 @@
         {% if compound.brief %}
         <p>{{ compound.brief }}</p>
         {% endif %}
-        {% if compound.sections or compound.modules or compound.dirs or compound.files or compound.namespaces or compound.classes or compound.typedefs or compound.funcs or compound.vars or compound.defines or compound.groups %}
-        <nav class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            {% for id, name, children in compound.sections recursive %}
-            {% if children %}
-            <li>
-              <a href="#{{ id }}">{{ name }}</a>
-              <ul>
-{{ loop(children)|rtrim|indent(4, true) }}
-              </ul>
-            </li>
-            {% else %}
-            <li><a href="#{{ id }}">{{ name }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% if compound.modules or compound.dirs or compound.files or compound.namespaces or compound.classes or compound.typedefs or compound.funcs or compound.vars or compound.defines or compound.groups %}
-            <li>
-              Reference
-              <ul>
-                {% if compound.modules %}
-                <li><a href="#groups">Modules</a></li>
-                {% endif %}
-                {% if compound.dirs %}
-                <li><a href="#subdirs">Directories</a></li>
-                {% endif %}
-                {% if compound.files %}
-                <li><a href="#files">Files</a></li>
-                {% endif %}
-                {% if compound.namespaces %}
-                <li><a href="#namespaces">Namespaces</a></li>
-                {% endif %}
-                {% if compound.classes %}
-                <li><a href="#nested-classes">Classes</a></li>
-                {% endif %}
-                {% if compound.enums %}
-                <li><a href="#enum-members">Enums</a></li>
-                {% endif %}
-                {% if compound.typedefs %}
-                <li><a href="#typedef-members">Typedefs</a></li>
-                {% endif %}
-                {% if compound.funcs %}
-                <li><a href="#func-members">Functions</a></li>
-                {% endif %}
-                {% if compound.vars %}
-                <li><a href="#var-members">Variables</a></li>
-                {% endif %}
-                {% if compound.defines %}
-                <li><a href="#define-members">Defines</a></li>
-                {% endif %}
-                {% for group in compound.groups %}
-                <li><a href="#{{ group.id }}">{{ group.name }}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-            {% endif %}
-          </ul>
-        </nav>
-        {% endif %}
 {% if compound.description %}
 {{ compound.description }}
 {% endif %}
@@ -298,5 +239,60 @@
           {% endfor %}
           {% endfor %}
         </section>
+        {% endif %}
+{% endblock %}
+
+{% block pagetoc %}
+        {% if compound.sections or compound.modules or compound.dirs or compound.files or compound.namespaces or compound.classes or compound.typedefs or compound.funcs or compound.vars or compound.defines or compound.groups %}
+<nav class="m-sidebar">
+  <h4 style="padding-top: 0.5rem;">Contents</h4>
+  <ul class="m-unstyled">
+    {% for id, name, children in compound.sections recursive %}
+    {% if children %}
+    <li style="margin-bottom: 0px;">
+      <a href="#{{ id }}" class="m-toc">{{ name }}</a>
+      <ul class="m-unstyled" style="padding-left: 1rem;">
+{{ loop(children)|rtrim|indent(8, true) }}
+      </ul>
+    </li>
+    {% else %}
+    <li style="margin-bottom: 0px;"><a href="#{{ id }}" class="m-toc">{{ name }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if compound.modules %}
+    <li style="margin-bottom: 0px;"><a href="#groups" class="m-toc">Modules</a></li>
+    {% endif %}
+    {% if compound.dirs %}
+    <li style="margin-bottom: 0px;"><a href="#subdirs" class="m-toc">Directories</a></li>
+    {% endif %}
+    {% if compound.files %}
+    <li style="margin-bottom: 0px;"><a href="#files" class="m-toc">Files</a></li>
+    {% endif %}
+    {% if compound.namespaces %}
+    <li style="margin-bottom: 0px;"><a href="#namespaces" class="m-toc">Namespaces</a></li>
+    {% endif %}
+    {% if compound.classes %}
+    <li style="margin-bottom: 0px;"><a href="#nested-classes" class="m-toc">Classes</a></li>
+    {% endif %}
+    {% if compound.enums %}
+    <li style="margin-bottom: 0px;"><a href="#enum-members" class="m-toc">Enums</a></li>
+    {% endif %}
+    {% if compound.typedefs %}
+    <li style="margin-bottom: 0px;"><a href="#typedef-members" class="m-toc">Typedefs</a></li>
+    {% endif %}
+    {% if compound.funcs %}
+    <li style="margin-bottom: 0px;"><a href="#func-members" class="m-toc">Functions</a></li>
+    {% endif %}
+    {% if compound.vars %}
+    <li style="margin-bottom: 0px;"><a href="#var-members" class="m-toc">Variables</a></li>
+    {% endif %}
+    {% if compound.defines %}
+    <li style="margin-bottom: 0px;"><a href="#define-members" class="m-toc">Defines</a></li>
+    {% endif %}
+    {% for group in compound.groups %}
+    <li style="margin-bottom: 0px;"><a href="#{{ group.id }}" class="m-toc">{{ group.name }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
         {% endif %}
 {% endblock %}

@@ -55,93 +55,6 @@
           </tbody>
         </table>
         {% endif %}
-        {% if compound.sections or compound.public_types or compound.public_static_funcs or compound.typeless_funcs or compound.public_funcs or compound.signals or compound.public_slots or compound.public_static_vars or compound.public_vars or compound.protected_types or compound.protected_static_funcs or compound.protected_funcs or compound.protected_signals or compound.protected_static_vars or compound.protected_vars or compound.private_funcs or compound.private_slots or compound.groups or compound.friend_funcs or compound.related %}
-        <nav class="m-block m-default">
-          <h3>Contents</h3>
-          <ul>
-            {% for id, name, children in compound.sections recursive %}
-            {% if children %}
-            <li>
-              <a href="#{{ id }}">{{ name }}</a>
-              <ul>
-{{ loop(children)|rtrim|indent(4, true) }}
-              </ul>
-            </li>
-            {% else %}
-            <li><a href="#{{ id }}">{{ name }}</a></li>
-            {% endif %}
-            {% endfor %}
-            <li>
-              Reference
-              <ul>
-                {% if compound.base_classes %}
-                <li><a href="#base-classes">Base classes</a></li>
-                {% endif %}
-                {% if compound.derived_classes %}
-                <li><a href="#derived-classes">Derived classes</a></li>
-                {% endif %}
-                {% if compound.public_types %}
-                <li><a href="#pub-types">Public types</a></li>
-                {% endif %}
-                {% if compound.public_static_vars %}
-                <li><a href="#pub-static-attribs">Public static variables</a></li>
-                {% endif %}
-                {% if compound.public_static_funcs %}
-                <li><a href="#pub-static-methods">Public static functions</a></li>
-                {% endif %}
-                {% if compound.typeless_funcs %}
-                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
-                {% endif %}
-                {% if compound.public_funcs %}
-                <li><a href="#pub-methods">Public functions</a></li>
-                {% endif %}
-                {% if compound.signals %}
-                <li><a href="#signals">Signals</a></li>
-                {% endif %}
-                {% if compound.public_slots %}
-                <li><a href="#pub-slots">Public slots</a></li>
-                {% endif %}
-                {% if compound.public_vars %}
-                <li><a href="#pub-attribs">Public variables</a></li>
-                {% endif %}
-                {% if compound.protected_types %}
-                <li><a href="#pro-types">Protected types</a></li>
-                {% endif %}
-                {% if compound.protected_static_funcs %}
-                <li><a href="#pro-static-methods">Protected static functions</a></li>
-                {% endif %}
-                {% if compound.protected_funcs %}
-                <li><a href="#pro-methods">Protected functions</a></li>
-                {% endif %}
-                {% if compound.protected_slots %}
-                <li><a href="#pro-slots">Protected slots</a></li>
-                {% endif %}
-                {% if compound.protected_static_vars %}
-                <li><a href="#pro-static-attribs">Protected static variables</a></li>
-                {% endif %}
-                {% if compound.protected_vars %}
-                <li><a href="#pro-attribs">Protected variables</a></li>
-                {% endif %}
-                {% if compound.private_funcs %}
-                <li><a href="#pri-methods">Private functions</a></li>
-                {% endif %}
-                {% if compound.private_slots %}
-                <li><a href="#pri-slots">Private slots</a></li>
-                {% endif %}
-                {% for group in compound.groups %}
-                <li><a href="#{{ group.id }}">{{ group.name }}</a></li>
-                {% endfor %}
-                {% if compound.friend_funcs %}
-                <li><a href="#friends">Friends</a></li>
-                {% endif %}
-                {% if compound.related %}
-                <li><a href="#related">Related</a></li>
-                {% endif %}
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        {% endif %}
         {% if compound.description %}
 {{ compound.description }}
         {% endif %}
@@ -563,3 +476,87 @@
         {% endif %}
 {% endblock %}
 
+{% block pagetoc %}
+        {% if compound.sections or compound.public_types or compound.public_static_funcs or compound.typeless_funcs or compound.public_funcs or compound.signals or compound.public_slots or compound.public_static_vars or compound.public_vars or compound.protected_types or compound.protected_static_funcs or compound.protected_funcs or compound.protected_signals or compound.protected_static_vars or compound.protected_vars or compound.private_funcs or compound.private_slots or compound.groups or compound.friend_funcs or compound.related %}
+<nav class="m-sidebar">
+  <h4 style="padding-top: 0.5rem;">Contents</h4>
+  <ul class="m-unstyled">
+    {% for id, name, children in compound.sections recursive %}
+    {% if children %}
+    <li style="margin-bottom: 0px;">
+      <a href="#{{ id }}" class="m-toc">{{ name }}</a>
+      <ul class="m-unstyled" style="padding-left: 1rem;">
+{{ loop(children)|rtrim|indent(8, true) }}
+      </ul>
+    </li>
+    {% else %}
+    <li style="margin-bottom: 0px;"><a href="#{{ id }}" class="m-toc">{{ name }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if compound.base_classes %}
+    <li style="margin-bottom: 0px;"><a href="#base-classes" class="m-toc">Base classes</a></li>
+    {% endif %}
+    {% if compound.derived_classes %}
+    <li style="margin-bottom: 0px;"><a href="#derived-classes" class="m-toc">Derived classes</a></li>
+    {% endif %}
+    {% if compound.public_types %}
+    <li style="margin-bottom: 0px;"><a href="#pub-types" class="m-toc">Public types</a></li>
+    {% endif %}
+    {% if compound.public_static_vars %}
+    <li style="margin-bottom: 0px;"><a href="#pub-static-attribs" class="m-toc">Public static variables</a></li>
+    {% endif %}
+    {% if compound.public_static_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#pub-static-methods" class="m-toc">Public static functions</a></li>
+    {% endif %}
+    {% if compound.typeless_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#typeless-methods" class="m-toc">Constructors, destructors, conversion operators</a></li>
+    {% endif %}
+    {% if compound.public_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#pub-methods" class="m-toc">Public functions</a></li>
+    {% endif %}
+    {% if compound.signals %}
+    <li style="margin-bottom: 0px;"><a href="#signals" class="m-toc">Signals</a></li>
+    {% endif %}
+    {% if compound.public_slots %}
+    <li style="margin-bottom: 0px;"><a href="#pub-slots" class="m-toc">Public slots</a></li>
+    {% endif %}
+    {% if compound.public_vars %}
+    <li style="margin-bottom: 0px;"><a href="#pub-attribs" class="m-toc">Public variables</a></li>
+    {% endif %}
+    {% if compound.protected_types %}
+    <li style="margin-bottom: 0px;"><a href="#pro-types" class="m-toc">Protected types</a></li>
+    {% endif %}
+    {% if compound.protected_static_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#pro-static-methods" class="m-toc">Protected static functions</a></li>
+    {% endif %}
+    {% if compound.protected_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#pro-methods" class="m-toc">Protected functions</a></li>
+    {% endif %}
+    {% if compound.protected_slots %}
+    <li style="margin-bottom: 0px;"><a href="#pro-slots" class="m-toc">Protected slots</a></li>
+    {% endif %}
+    {% if compound.protected_static_vars %}
+    <li style="margin-bottom: 0px;"><a href="#pro-static-attribs" class="m-toc">Protected static variables</a></li>
+    {% endif %}
+    {% if compound.protected_vars %}
+    <li style="margin-bottom: 0px;"><a href="#pro-attribs" class="m-toc">Protected variables</a></li>
+    {% endif %}
+    {% if compound.private_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#pri-methods" class="m-toc">Private functions</a></li>
+    {% endif %}
+    {% if compound.private_slots %}
+    <li style="margin-bottom: 0px;"><a href="#pri-slots" class="m-toc">Private slots</a></li>
+    {% endif %}
+    {% for group in compound.groups %}
+    <li style="margin-bottom: 0px;"><a href="#{{ group.id }}" class="m-toc">{{ group.name }}</a></li>
+    {% endfor %}
+    {% if compound.friend_funcs %}
+    <li style="margin-bottom: 0px;"><a href="#friends" class="m-toc">Friends</a></li>
+    {% endif %}
+    {% if compound.related %}
+    <li style="margin-bottom: 0px;"><a href="#related" class="m-toc">Related</a></li>
+    {% endif %}
+  </ul>
+</nav>
+        {% endif %}
+{% endblock %}
