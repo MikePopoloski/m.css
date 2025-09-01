@@ -137,6 +137,10 @@ h1 .m-doc-template, h1 .m-doc-include {
   font-size: 1.3rem;
   font-weight: normal;
 }
+h1 .m-doc-include {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
 /* If there's no template, the include is shown after in a slightly more packed
    layout */
 h1 .m-doc-include:last-child {
@@ -144,6 +148,10 @@ h1 .m-doc-include:last-child {
 }
 h3 .m-doc-template, h3 .m-doc-include {
   font-size: 1rem;
+  font-weight: normal;
+}
+h3 .m-doc-include {
+  font-size: 0.8rem;
   font-weight: normal;
 }
 .m-doc-template, dl.m-doc dd, ul.m-doc li > span.m-doc {

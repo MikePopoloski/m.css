@@ -86,11 +86,15 @@ dl.m-doc dt:target, dl.m-doc dt:target + dd {
   border-left-width: 0.25rem;
   border-color: #a5c9ea;
 }
-dl.m-doc dt:target { padding-left: 0.75rem; }
-dl.m-doc dt:target + dd { padding-left: 3.25rem; }
+dl.m-doc dt:target {
+  padding-left: 0.75rem;
+}
+dl.m-doc dt:target + dd {
+  padding-left: 3.25rem;
+}
 ul.m-doc {
   list-style: none;
-  margin-left:  1.0375rem;
+  margin-left: 1.0375rem;
   padding-left: 0.9rem;
   border-left-color: #405363;
   border-left-width: 0.0625rem;
@@ -115,10 +119,18 @@ ul.m-doc li.m-doc-expansible > a:first-child::before, ul.m-doc li.m-doc-collapsi
   width: 0.4rem;
   font-weight: bold;
 }
-ul.m-doc li.m-doc-expansible > a:first-child::before { content: '⊕'; }
-ul.m-doc li.m-doc-collapsible > a:first-child::before { content: '⊖'; }
+ul.m-doc li.m-doc-expansible > a:first-child::before {
+  content: '⊕';
+}
+ul.m-doc li.m-doc-collapsible > a:first-child::before {
+  content: '⊖';
+}
 h1 .m-doc-template, h1 .m-doc-include {
   font-size: 1.3rem;
+  font-weight: normal;
+}
+h1 .m-doc-include {
+  font-size: 0.8rem;
   font-weight: normal;
 }
 h1 .m-doc-include:last-child {
@@ -126,6 +138,10 @@ h1 .m-doc-include:last-child {
 }
 h3 .m-doc-template, h3 .m-doc-include {
   font-size: 1rem;
+  font-weight: normal;
+}
+h3 .m-doc-include {
+  font-size: 0.8rem;
   font-weight: normal;
 }
 .m-doc-template, dl.m-doc dd, ul.m-doc li > span.m-doc {
@@ -306,7 +322,9 @@ a.m-doc-search-icon:focus svg, a.m-doc-search-icon:hover svg, a.m-doc-search-ico
 .m-doc-search-typed {
   color: #5b9dd9;
 }
-.m-doc-search input[type="search"] { -webkit-appearance: textfield; }
+.m-doc-search input[type="search"] {
+  -webkit-appearance: textfield;
+}
 .m-doc-search input[type="search"]::-webkit-search-decoration,
 .m-doc-search input[type="search"]::-webkit-search-cancel-button,
 .m-doc-search input[type="search"]::-webkit-search-results-button,
