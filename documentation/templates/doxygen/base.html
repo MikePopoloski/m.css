@@ -102,7 +102,10 @@
 <main><article>
   <div class="m-container">
     <div class="m-row">
-      <div class="m-col-l-3 m-show-l"></div>
+      <div class="m-col-l-3 m-show-l">
+        {% block leftsidebar %}
+        {% endblock %}
+      </div>
       <div class="m-col-l-6">
         {% if PAGE_HEADER %}
         {{ PAGE_HEADER|replace('{filename}', FILENAME) }}

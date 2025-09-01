@@ -204,6 +204,7 @@ class State:
         self.current_compound_url = None
         self.current_definition_url_base = None
         self.parsing_toplevel_desc = False
+        self.namespace_members = {}
 
 def slugify(text: str) -> str:
     # Maybe some Unicode normalization would be nice here?
@@ -2773,6 +2774,65 @@ def build_search_data(state: State, merge_subtrees=True, add_lookahead_barriers=
 
     return serialize_search_data(Serializer(file_offset_bytes=state.config['SEARCH_FILE_OFFSET_BYTES'], result_id_bytes=state.config['SEARCH_RESULT_ID_BYTES'], name_size_bytes=state.config['SEARCH_NAME_SIZE_BYTES']), trie, map, search_type_map, symbol_count, merge_subtrees=merge_subtrees, merge_prefixes=merge_prefixes)
 
+def add_sibling_navigation(parsed_compounds: dict[str, StateCompound]):
+    """Add sibling navigation data to all compounds based on their parent relationships."""
+    
+    # Process each compound to add sibling navigation data
+    for _, compound in parsed_compounds.items():
+        compound.siblings = []
+        
+        # For namespace pages: add their own children and members
+        parent_compound = compound
+        if compound.kind != 'namespace' and compound.kind != 'dir':
+            parent_id = compound.parent
+            if not parent_id or parent_id not in parsed_compounds:
+                continue
+            parent_compound = parsed_compounds[parent_id]
+            
+        for child_id in parent_compound.children:
+            if child_id not in parsed_compounds:
+                continue
+
+            # Include all compounds that have documentation (brief or details)
+            child = parsed_compounds[child_id]
+            if not (child.brief or child.has_details):
+                continue
+
+            # Create sibling entry for the child
+            sibling = Empty()
+            sibling.id = child.id
+            simple_name = child.name
+            if '::' in simple_name:
+                simple_name = simple_name.split('::')[-1]
+
+            if child.kind == 'dir':
+                simple_name = simple_name.rsplit('/', 1)[-1]
+
+            sibling.name = simple_name
+            sibling.kind = child.kind
+            sibling.url = child.url
+            sibling.brief = child.brief
+            sibling.is_current = (child_id == compound.id)
+            compound.siblings.append(sibling)
+
+        # For classes/structs, also add parent namespace members if available
+        if parent_compound.kind == 'namespace':
+            for kinds in ['enums', 'typedefs', 'funcs', 'vars', 'defines']:
+                if hasattr(parent_compound, kinds):
+                    for item in getattr(parent_compound, kinds):
+                        if item.brief or (hasattr(item, 'has_details') and item.has_details):
+                            sibling = Empty()
+                            sibling.id = item.id
+                            sibling.name = item.name
+                            sibling.kind = kinds[:-1] if kinds != 'funcs' else 'function'
+                            sibling.url = parent_compound.url + '#' + item.id
+                            sibling.brief = item.brief
+                            sibling.is_current = False
+                            compound.siblings.append(sibling)
+        
+        # Sort siblings by name for consistent ordering
+        compound.siblings.sort(key=lambda s: 'aaa' + s.name.lower() if s.kind == 'dir' or s.kind == 'namespace' else 'zzz' + s.name.lower())
+
 def parse_xml(state: State, xml: str):
     # Reset counter for unique math formulas
     latex2svgextra.counter = 0
@@ -2833,6 +2893,8 @@ def parse_xml(state: State, xml: str):
     compound = Empty()
     compound.kind = compounddef.attrib['kind']
     compound.id = compounddef.attrib['id']
+    compound.parent = state.compounds[compound.id].parent
+    compound.children = state.compounds[compound.id].children
     # Compound name is page filename, so we have to use title there. The same
     # is for groups.
     compound.name = compounddef.find('title').text if compound.kind in ['page', 'group'] and compounddef.findtext('title') else compounddef.find('compoundname').text
@@ -4157,6 +4219,9 @@ def run(state: State, *, templates=default_templates, wildcard=default_wildcard,
 
     postprocess_state(state)
 
+    parse_results = []
+    parsed_compounds = {}
+
     for file in xml_files:
         if os.path.basename(file) == 'index.xml':
             parsed = parse_index_xml(state, file)
@@ -4184,26 +4249,31 @@ def run(state: State, *, templates=default_templates, wildcard=default_wildcard,
                     f.write(b'\n')
         else:
             parsed = parse_xml(state, file)
-            if not parsed: continue
+            if parsed:
+                parse_results.append((parsed, file))
+                parsed_compounds[parsed.compound.id] = parsed.compound
 
-            template = env.get_template('{}.html'.format(parsed.compound.kind))
-            rendered = template.render(compound=parsed.compound,
-                DOXYGEN_VERSION=parsed.version,
-                FILENAME=parsed.compound.url,
-                SEARCHDATA_FORMAT_VERSION=searchdata_format_version,
-                # TODO: whitelist only what matters from doxyfile
-                **state.doxyfile, **state.config)
+    add_sibling_navigation(parsed_compounds)
 
-            output = os.path.join(html_output, parsed.compound.url)
-            with open(output, 'wb') as f:
-                f.write(rendered.encode('utf-8'))
-                # Add back a trailing newline so we don't need to bother with
-                # patching test files to include a trailing newline to make Git
-                # happy. Can't use keep_trailing_newline because that'd add it
-                # also for nested templates :( The rendered file should never
-                # contain a trailing newline on its own.
-                assert not rendered.endswith('\n')
-                f.write(b'\n')
+    for parsed, file in parse_results:
+        template = env.get_template('{}.html'.format(parsed.compound.kind))
+        rendered = template.render(compound=parsed.compound,
+            DOXYGEN_VERSION=parsed.version,
+            FILENAME=parsed.compound.url,
+            SEARCHDATA_FORMAT_VERSION=searchdata_format_version,
+            # TODO: whitelist only what matters from doxyfile
+            **state.doxyfile, **state.config)
+
+        output = os.path.join(html_output, parsed.compound.url)
+        with open(output, 'wb') as f:
+            f.write(rendered.encode('utf-8'))
+            # Add back a trailing newline so we don't need to bother with
+            # patching test files to include a trailing newline to make Git
+            # happy. Can't use keep_trailing_newline because that'd add it
+            # also for nested templates :( The rendered file should never
+            # contain a trailing newline on its own.
+            assert not rendered.endswith('\n')
+            f.write(b'\n')
 
     # Empty index page in case no mainpage documentation was provided so
     # there's at least some entrypoint. Doxygen version is not set in this

@@ -476,6 +476,63 @@
         {% endif %}
 {% endblock %}
 
+{% block leftsidebar %}
+<nav class="m-sidebar" style="position: sticky; top: 5px;">
+  <h4 style="padding-top: 0.5rem;">Navigation</h4>
+  
+  {% if compound.breadcrumb or compound.siblings %}
+  <div style="margin-bottom: 1rem;">
+    <ul class="m-unstyled">
+      {% if compound.breadcrumb %}
+      {% for name, target in compound.breadcrumb %}
+      {% if not loop.last %}
+      <li style="margin-bottom: 2px;">
+        <a href="{{ target }}" class="m-toc" style="font-size: 0.9em; padding-left: {{ loop.index0 * 8 }}px;">
+          {{ name }}
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      
+      {% if compound.siblings %}
+      {% for sibling in compound.siblings %}
+      {% if not sibling.is_current %}
+      <li style="margin-bottom: 1px;">
+        <a href="{{ sibling.url }}" class="m-toc" style="font-size: 0.85em; padding-left: {{ (compound.breadcrumb|length-1 if compound.breadcrumb else 1) * 8 }}px;" title="{{ sibling.brief }}">
+          {{ sibling.name }} <span style="color: #777;">({{ sibling.kind }})</span>
+        </a>
+      </li>
+      {% else %}
+      <li style="margin-bottom: 2px;">
+        <span style="font-weight: bold; color: #5b9bd5; font-size: 0.9em; padding-left: {{ (compound.breadcrumb|length-1 if compound.breadcrumb else 1) * 8 }}px;">
+          {{ sibling.name }} <span style="color: #999;">({{ sibling.kind }})</span>
+        </span>
+      </li>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div style="padding-top: 0.5rem; border-top: 1px solid #444; margin-top: 0.5rem;">
+    <strong style="font-size: 0.9em; color: #ddd; display: block; margin-bottom: 4px;">API Reference:</strong>
+    <ul class="m-unstyled">
+      <li style="margin-bottom: 2px;">
+        <a href="namespaces.html" class="m-toc" style="font-size: 0.9em;">📁 Namespaces</a>
+      </li>
+      <li style="margin-bottom: 2px;">
+        <a href="annotated.html" class="m-toc" style="font-size: 0.9em;">🏛️ Classes</a>
+      </li>
+      <li style="margin-bottom: 2px;">
+        <a href="files.html" class="m-toc" style="font-size: 0.9em;">📄 Files</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
 {% block pagetoc %}
         {% if compound.sections or compound.public_types or compound.public_static_funcs or compound.typeless_funcs or compound.public_funcs or compound.signals or compound.public_slots or compound.public_static_vars or compound.public_vars or compound.protected_types or compound.protected_static_funcs or compound.protected_funcs or compound.protected_signals or compound.protected_static_vars or compound.protected_vars or compound.private_funcs or compound.private_slots or compound.groups or compound.friend_funcs or compound.related %}
 <nav class="m-sidebar">

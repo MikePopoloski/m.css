@@ -242,6 +242,67 @@
         {% endif %}
 {% endblock %}
 
+{% block leftsidebar %}
+<nav class="m-sidebar" style="position: sticky; top: 5px;">
+  <h4 style="padding-top: 0.5rem;">Navigation</h4>
+  
+  {% if compound.breadcrumb or compound.siblings %}
+  <div style="margin-bottom: 1rem;">
+    <ul class="m-unstyled">
+      {% if compound.breadcrumb %}
+      {% for name, target in compound.breadcrumb %}
+      <li style="margin-bottom: 2px;">
+        {% if loop.last and compound.kind == 'namespace' %}
+        <span style="font-weight: bold; color: #5b9bd5; font-size: 0.9em; padding-left: {{ loop.index0 * 8 }}px;">
+          {{ name }}
+        </span>
+        {% else %}
+        {% if not loop.last or compound.kind != 'file' %}
+        <a href="{{ target }}" class="m-toc" style="font-size: 0.9em; padding-left: {{ loop.index0 * 8 }}px;">
+          {{ name }}
+        </a>
+        {% endif %}
+        {% endif %}
+      </li>
+      {% endfor %}
+      {% endif %}
+      
+      {% if compound.siblings %}
+      {% for sibling in compound.siblings %}
+      <li style="margin-bottom: 1px;">
+        {% if sibling.is_current %}
+        <span style="font-weight: bold; color: #5b9bd5; font-size: 0.85em; padding-left: {{ ((compound.breadcrumb|length if compound.breadcrumb else 0) - (1 if compound.kind == 'file' else 0)) * 8 }}px;">
+          {{ sibling.name }} <span style="color: #999;">({{ sibling.kind }})</span>
+        </span>
+        {% else %}
+        <a href="{{ sibling.url }}" class="m-toc" style="font-size: 0.85em; padding-left: {{ ((compound.breadcrumb|length if compound.breadcrumb else 0) - (1 if compound.kind == 'file' else 0)) * 8 }}px;" title="{{ sibling.brief }}">
+          {{ sibling.name }} <span style="color: #777;">({{ sibling.kind }})</span>
+        </a>
+        {% endif %}
+      </li>
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div style="padding-top: 0.5rem; border-top: 1px solid #444; margin-top: 0.5rem;">
+    <strong style="font-size: 0.9em; color: #ddd; display: block; margin-bottom: 4px;">API Reference:</strong>
+    <ul class="m-unstyled">
+      <li style="margin-bottom: 2px;">
+        <a href="namespaces.html" class="m-toc" style="font-size: 0.9em;">📁 Namespaces</a>
+      </li>
+      <li style="margin-bottom: 2px;">
+        <a href="annotated.html" class="m-toc" style="font-size: 0.9em;">🏛️ Classes</a>
+      </li>
+      <li style="margin-bottom: 2px;">
+        <a href="files.html" class="m-toc" style="font-size: 0.9em;">📄 Files</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
 {% block pagetoc %}
         {% if compound.sections or compound.modules or compound.dirs or compound.files or compound.namespaces or compound.classes or compound.typedefs or compound.funcs or compound.vars or compound.defines or compound.groups %}
 <nav class="m-sidebar">
