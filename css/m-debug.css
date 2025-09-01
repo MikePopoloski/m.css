@@ -68,5 +68,6 @@ table.m-scroll, table.m-scroll *,
 .m-note .m-note, .m-note .m-block, .m-note .m-frame, .m-note .m-text,
 
 /* Links shouldn't contain links */
-a a
-  { background-color: #ff0000; }
+a a {
+  background-color: #ff0000;
+}
