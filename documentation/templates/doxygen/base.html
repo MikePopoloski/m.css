@@ -102,6 +102,13 @@
 <main><article>
   <div class="m-container">
     <div class="m-row">
+    {% if IS_INDEX_PAGE %}
+      <div class="m-col-l-2 m-show-l"></div>
+      <div class="m-col-t-8">
+        {% if PAGE_HEADER %}
+        {{ PAGE_HEADER|replace('{filename}', FILENAME) }}
+        {% endif %}
+    {% else %}
       <div class="m-col-l-3 m-show-l">
         {% block leftsidebar %}
         {% endblock %}
@@ -110,13 +117,18 @@
         {% if PAGE_HEADER %}
         {{ PAGE_HEADER|replace('{filename}', FILENAME) }}
         {% endif %}
+    {% endif %}
 {% block main %}
 {% endblock %}
       </div>
+    {% if IS_INDEX_PAGE %}
+      <div class="m-col-l-2 m-show-l"></div>
+    {% else %}
       <div class="m-col-l-3 m-show-l" style="top: 5px;position: sticky;">
         {% block pagetoc %}
         {% endblock %}
       </div>
+    {% endif %}
     </div>
   </div>
 </article></main>

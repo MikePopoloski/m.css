@@ -5302,6 +5302,7 @@ def run(
     search_merge_subtrees=True,
     search_merge_prefixes=True,
     sort_globbed_files=False,
+    mainpage=None,
 ):
     xml_input = os.path.join(
         state.basedir, state.doxyfile["OUTPUT_DIRECTORY"], state.doxyfile["XML_OUTPUT"]
@@ -5442,24 +5443,40 @@ def run(
     # Empty index page in case no mainpage documentation was provided so
     # there's at least some entrypoint. Doxygen version is not set in this
     # case, as this is totally without Doxygen involvement.
-    if not os.path.join(xml_input, "indexpage.xml") in xml_files_metadata:
+    if not os.path.join(xml_input, "indexpage.xml") in xml_files_metadata or mainpage:
         logging.debug("writing index.html for an empty mainpage")
 
-        compound = Empty()
-        compound.kind = "page"
-        compound.name = state.doxyfile["PROJECT_NAME"]
-        compound.description = ""
-        compound.breadcrumb = [(state.doxyfile["PROJECT_NAME"], "index.html")]
-        template = env.get_template("page.html")
-        rendered = template.render(
-            compound=compound,
-            DOXYGEN_VERSION=None,
-            FILENAME="index.html",
-            SEARCHDATA_FORMAT_VERSION=searchdata_format_version,
-            # TODO: whitelist only what matters from doxyfile
-            **state.doxyfile,
-            **state.config,
-        )
+        if mainpage:
+            with open(mainpage, "r") as file:
+                index_content = file.read()
+
+            template = env.get_template("base-index.html")
+            rendered = template.render(
+                index_content=index_content,
+                DOXYGEN_VERSION=None,
+                FILENAME="index.html",
+                SEARCHDATA_FORMAT_VERSION=searchdata_format_version,
+                IS_INDEX_PAGE=True,
+                **state.doxyfile,
+                **state.config,
+            )
+        else:
+            compound = Empty()
+            compound.kind = "page"
+            compound.name = state.doxyfile["PROJECT_NAME"]
+            compound.description = ""
+            compound.breadcrumb = [(state.doxyfile["PROJECT_NAME"], "index.html")]
+            template = env.get_template("page.html")
+            rendered = template.render(
+                compound=compound,
+                DOXYGEN_VERSION=None,
+                FILENAME="index.html",
+                SEARCHDATA_FORMAT_VERSION=searchdata_format_version,
+                # TODO: whitelist only what matters from doxyfile
+                **state.doxyfile,
+                **state.config,
+            )
+
         output = os.path.join(html_output, "index.html")
         with open(output, "wb") as f:
             f.write(rendered.encode("utf-8"))
@@ -5596,6 +5613,8 @@ if __name__ == "__main__":  # pragma: no cover
         action="store_true",
     )
     parser.add_argument("--debug", help="verbose debug output", action="store_true")
+    parser.add_argument("--mainpage", help="main page content")
+
     args = parser.parse_args()
 
     if args.debug:
@@ -5638,4 +5657,5 @@ if __name__ == "__main__":  # pragma: no cover
         search_merge_subtrees=not args.search_no_subtree_merging,
         search_add_lookahead_barriers=not args.search_no_lookahead_barriers,
         search_merge_prefixes=not args.search_no_prefix_merging,
+        mainpage=args.mainpage,
     )
