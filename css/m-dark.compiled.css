@@ -2534,7 +2534,7 @@ body > footer > nav ul {
 body > footer > nav a {
   text-decoration: none;
   text-transform: none;
-  color: #ffffff;
+  color: #5b9dd9;
 }
 body > footer > nav a:hover, body > footer > nav a:focus, body > footer > nav a:active {
   color: #a5c9ea;

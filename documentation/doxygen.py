@@ -132,8 +132,7 @@ default_config = {
     "LINKS_NAVBAR1": [("Pages", "pages", []), ("Namespaces", "namespaces", [])],
     "LINKS_NAVBAR2": [("Classes", "annotated", []), ("Files", "files", [])],
     "STYLESHEETS": [
-        "https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i",
-        "../css/m-dark+documentation.compiled.css",
+        "../css/m-dark+documentation.min.css",
     ],
     "HTML_HEADER": None,
     "EXTRA_FILES": [],

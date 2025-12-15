@@ -5,3 +5,5 @@
 ./postprocess.py m-light.css
 ./postprocess.py m-light.css m-documentation.css -o m-light+documentation.compiled.css
 ./postprocess.py m-light.css m-theme-light.css m-documentation.css --no-import -o m-light.documentation.compiled.css
+
+lightningcss --minify m-dark+documentation.compiled.css -o m-dark+documentation.min.css
