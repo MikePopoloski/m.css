@@ -1320,7 +1320,12 @@ def parse_desc_internal(
                 # three params sharing the same description)
                 for name in param_names.findall("parametername"):
                     if i.attrib["kind"] == "param":
-                        out.params[name.text] = (
+                        text = name.text
+                        ref = name.find("ref")
+                        if ref is not None:
+                            text = ref.text
+
+                        out.params[text] = (
                             description,
                             name.attrib["direction"]
                             if "direction" in name.attrib
@@ -3643,9 +3648,11 @@ def add_sibling_navigation(parsed_compounds: dict[str, StateCompound]):
 
         # Sort siblings by name for consistent ordering
         compound.siblings.sort(
-            key=lambda s: "aaa" + s.name.lower()
-            if s.kind == "dir" or s.kind == "namespace"
-            else "zzz" + s.name.lower()
+            key=lambda s: (
+                "aaa" + s.name.lower()
+                if s.kind == "dir" or s.kind == "namespace"
+                else "zzz" + s.name.lower()
+            )
         )
 
 
@@ -4593,6 +4600,7 @@ def parse_xml(state: State, xml: str):
             "collaborationgraph",
             "listofallmembers",
             "tableofcontents",
+            "innerconcept",  # might want to support at some point
         ] and not (
             compounddef.attrib["kind"] in ["page", "group"]
             and compounddef_child.tag == "title"
